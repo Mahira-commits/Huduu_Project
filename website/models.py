@@ -4,7 +4,6 @@ from flask_login import UserMixin
 import datetime
 
 class User(db.Model):
-    
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80),nullable=False)
     name = db.Column(db.String(80), nullable=False)
@@ -18,8 +17,7 @@ class User(db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
 '''
-class dummyTest(db.Model):
-     
+class Progress(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
     #happy, neutral, sad
     feeling = db.Column(db.String(10), nullable=False)
@@ -27,7 +25,7 @@ class dummyTest(db.Model):
     num_meals = db.Column(db.String(2), nullable=False)
     # 0-3,4-6,7-9,10+
     num_hrs = db.Column(db.String(5), nullable=False)
-
+'''
 class Appointments(db.Model):
     name=db.Column(db.String(150), nullable=False)
     studentId=db.Column(db.Integer,db.ForeignKey('User.id'),primary_key=True, nullable=False)
@@ -44,3 +42,4 @@ class StudentTips(db.Model):
 class BroadcastTips(db.Model):
     studentId=db.Column(db.Integer,db.ForeignKey('User.id'),primary_key=True, nullable=False)
     message = db.Column(db.String(1000), nullable=False, primary_key=True)
+'''

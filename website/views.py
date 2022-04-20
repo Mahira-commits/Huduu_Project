@@ -2,7 +2,7 @@ from time import sleep
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import null
-from .models import User,dummyTest, Appointments, StudentTips, BroadcastTips
+from .models import User, Progress
 from . import db
 import json
 
@@ -20,10 +20,6 @@ def indexCounselor():
 @views.route('/contact', methods = ['GET', 'POST'])
 def contact():
     return render_template('contact.html')
-
-@views.route('/moodStudent', methods = ['GET', 'POST'])
-def moodStudent():
-    return render_template('moodStudent.html')
 
 @views.route('/about', methods = ['GET', 'POST'])
 def about():
@@ -69,67 +65,23 @@ def viewAppointmentStudent():
 def viewTipsCounselor():
     return render_template('viewTipsCounselor.html')
 
-@views.route('/charts', methods = ['GET', 'POST'])
-def charts():
-    mooddict = {}
-
-    for dummy in dummyTest.query.all():
-        feeling= dummy.feeling
-        if feeling not in mooddict.keys():
-            mooddict[feeling]=0
-    for dummy in dummyTest.query.all():
-        feeling= dummy.feeling
-        mooddict[feeling] = mooddict[feeling]+1
-    
-    labels = list(mooddict.keys())
-    values = list(mooddict.values())
-    print(labels)
-    print(values)
-    return render_template('charts.html', label = json.dumps(labels), value= json.dumps(values))
-'''
-auth.route('/register', methods=['GET', 'POST'])
-def register():
+#####booking
+@views.route('/bookAppointmentStudent', methods = ['GET', 'POST'])
+def bookAppointmentStudent():
     if request.method == 'POST':
-        if request.form.get('Student'):
-            username, password, name,id, email, phone, userType  = request.form['username'],request.form['password'],request.form['name'], request.form['aus_id'], request.form['email'],request.form['phone'], 0
-            user1 = User(username=username,password=password, name=name,  id=id, email=email,phone=phone,userType=userType)
-            print(username, password, name,id, email, phone, userType )
-            db.session.add(user1)
-            db.session.commit()
-            return redirect(url_for('auth.login')) 
-        if request.form.get('Counsellor'):
-            username, password, name,id, email, phone, userType  = request.form['username'],request.form['password'],request.form['name'], request.form['aus_id'], request.form['email'],request.form['phone'], 1
-            user1 = User(username=username,password=password, name=name,  id=id, email=email,phone=phone,userType=userType)
-            db.session.add(user1)
-            db.session.commit()
-            return redirect(url_for('auth.login')) 
-    return render_template('register.html')
-    '''
-#####adding counsellors names to drop down 
-@views.route('/retrieve', methods = ['GET', 'POST'])
-def retrieve():
+        name, aus_id, counselor, phone, date, time= request.form['name'],request.form['aus_id'],request.form['counselor'], request.form['phone'], request.form['date'],request.form['time']
+        #appointment1 = Appointments(name=name,aus_id=aus_id, counselor=counselor,  phone=phone, date=date,time=time)
+        print(name, aus_id, counselor,phone, date, time)
+        #db.session.add(appointment1)
+        #db.session.commit()
+        return render_template('confirmation.html')
+        
     counselorNames=[]
     for x in User.query.all():
         if x.userType==1:
             counselorNames.append(x.name)
     print(counselorNames)
     return render_template('bookAppointmentStudent.html', label=counselorNames)
-
-@views.route('/bookAppointmentStudent', methods = ['GET', 'POST'])
-def bookAppointmentStudent():
-    return render_template('bookAppointmentStudent.html')
-
-#####booking
-@views.route('/bookAppointmentStudent2', methods = ['GET', 'POST'])
-def bookAppointmentStudent2():
-    #if request.method == 'POST':
-        name, aus_id, counselor, phone, date, time= request.form['name'],request.form['aus_id'],request.form['counselor'], request.form['phone'], request.form['date'],request.form['time']
-        appointment1 = Appointments(name=name,aus_id=aus_id, counselor=counselor,  phone=phone, date=date,time=time)
-        print(name, aus_id , counselor,phone, date, time)
-        db.session.add(appointment1)
-        db.session.commit()
-        return render_template('bookAppointmentStudent2.html')
-   
 
 '''
 #Adding dummy records to test on
@@ -146,27 +98,73 @@ stat1 = dummyTest(feeling='happy',num_meals='1',num_hrs ='0-3')
     print(dummyTest.query.all())
     print(dummyTest.query.filter_by(feeling='neutral').all())
 '''
-@views.route('/test.html',methods = ['POST', 'GET'])
-def moodvalid():
-    
+@views.route('/moodStudent',methods = ['POST', 'GET'])
+def moodStudent():
     if request.method == 'POST':
+        # inputting moods from user
         happy = request.form.get('happy')
-        print("happy is",happy)
         neutral = request.form.get('neutral')
-        print("neutral is",neutral)
         sad = request.form.get('sad')
-        print("sad is",sad)
         feeling = null
+
         if happy!=None:
             feeling=happy
         elif neutral!=None:
             feeling = neutral
         elif sad!=None:
-            feeling = sad  
-        print("feeling from post form is:",feeling)
-        dummy = dummyTest(feeling=feeling,num_meals='3',num_hrs ='4-6')
+            feeling = sad
+             
+        '''
+        # inputting meals from user
+        one = request.form.get('1')
+        two = request.form.get('2')
+        three = request.form.get('3')
+        num_meals = null
+
+        if one!=None:
+            num_meals=one
+        elif two!=None:
+            num_meals=two
+        elif three!=None:
+            num_meals = three 
+
+        # inputting sleep hours from user
+        zero_three = request.form.get('0-3')
+        four_six = request.form.get('4-6')
+        seven_nine = request.form.get('7-9')
+        ten = request.form.get('10')
+        num_hrs = null
+
+        if zero_three!=None:
+            num_hrs=zero_three
+        elif four_six!=None:
+            num_hrs=four_six
+        elif seven_nine!=None:
+            num_hrs = seven_nine 
+        elif ten!=None:
+            num_hrs = ten 
+        '''
+
+        dummy = Progress(feeling=feeling,num_meals='3',num_hrs='4-6')
         db.session.add(dummy)
         db.session.commit()
         print(dummy.feeling)
-    return redirect(url_for('views.charts'))
+        return render_template('moodStudent.html')
+    return render_template('moodStudent.html')
     
+@views.route('/myProgressStudent', methods = ['GET', 'POST'])
+def myProgressStudent():
+    mooddict = {}
+    for dummy in Progress.query.all():
+        feeling = dummy.feeling
+        if feeling not in mooddict.keys():
+            mooddict[feeling] = 0
+    for dummy in Progress.query.all():
+        feeling= dummy.feeling
+        mooddict[feeling] = mooddict[feeling] + 1
+    
+    labels = list(mooddict.keys())
+    values = list(mooddict.values())
+    print(labels)
+    print(values)
+    return render_template('myProgressStudent.html', label = json.dumps(labels), value= json.dumps(values))
