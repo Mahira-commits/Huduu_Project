@@ -1,0 +1,35 @@
+<html>
+    <body>
+        <canvas id="lineChart" width="900" height="500"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+        <script>
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            label = JSON.parse({{label | tojson}});
+            value = JSON.parse({{value | tojson}});
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: 'Earnings in $',
+                        data: value,
+                        backgroundColor: [
+                            'green','yellow','red'
+
+                        ],
+                        borderColor: 'black',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                    legend: {
+                        display: false
+                    }},
+                    responsive: false
+                }
+            });
+        </script>
+    </body>
+</html>
+
