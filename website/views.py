@@ -2,7 +2,7 @@ from time import sleep
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import null
-from .models import User,dummyTest
+from .models import User,dummyTest, Appointments, StudentTips, BroadcastTips
 from . import db
 import json
 
@@ -45,10 +45,6 @@ def addTipCounselor():
 def appointmentCounselor():
     return render_template('appointmentCounselor.html')
 
-@views.route('/bookAppointmentStudent', methods = ['GET', 'POST'])
-def bookAppointmentStudent():
-    return render_template('bookAppointmentStudent.html')
-
 @views.route('/confirmation', methods = ['GET', 'POST'])
 def confirmation():
     return render_template('confirmation.html')
@@ -90,7 +86,50 @@ def charts():
     print(labels)
     print(values)
     return render_template('charts.html', label = json.dumps(labels), value= json.dumps(values))
+'''
+auth.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        if request.form.get('Student'):
+            username, password, name,id, email, phone, userType  = request.form['username'],request.form['password'],request.form['name'], request.form['aus_id'], request.form['email'],request.form['phone'], 0
+            user1 = User(username=username,password=password, name=name,  id=id, email=email,phone=phone,userType=userType)
+            print(username, password, name,id, email, phone, userType )
+            db.session.add(user1)
+            db.session.commit()
+            return redirect(url_for('auth.login')) 
+        if request.form.get('Counsellor'):
+            username, password, name,id, email, phone, userType  = request.form['username'],request.form['password'],request.form['name'], request.form['aus_id'], request.form['email'],request.form['phone'], 1
+            user1 = User(username=username,password=password, name=name,  id=id, email=email,phone=phone,userType=userType)
+            db.session.add(user1)
+            db.session.commit()
+            return redirect(url_for('auth.login')) 
+    return render_template('register.html')
+    '''
+#####adding counsellors names to drop down 
+@views.route('/retrieve', methods = ['GET', 'POST'])
+def retrieve():
+    counselorNames=[]
+    for x in User.query.all():
+        if x.userType==1:
+            counselorNames.append(x.name)
+    print(counselorNames)
+    return render_template('bookAppointmentStudent.html', label=counselorNames)
 
+@views.route('/bookAppointmentStudent', methods = ['GET', 'POST'])
+def bookAppointmentStudent():
+    return render_template('bookAppointmentStudent.html')
+
+#####booking
+@views.route('/bookAppointmentStudent2', methods = ['GET', 'POST'])
+def bookAppointmentStudent2():
+    #if request.method == 'POST':
+        name, aus_id, counselor, phone, date, time= request.form['name'],request.form['aus_id'],request.form['counselor'], request.form['phone'], request.form['date'],request.form['time']
+        appointment1 = Appointments(name=name,aus_id=aus_id, counselor=counselor,  phone=phone, date=date,time=time)
+        print(name, aus_id , counselor,phone, date, time)
+        db.session.add(appointment1)
+        db.session.commit()
+        return render_template('bookAppointmentStudent2.html')
+   
 
 '''
 #Adding dummy records to test on
@@ -107,7 +146,6 @@ stat1 = dummyTest(feeling='happy',num_meals='1',num_hrs ='0-3')
     print(dummyTest.query.all())
     print(dummyTest.query.filter_by(feeling='neutral').all())
 '''
-
 @views.route('/test.html',methods = ['POST', 'GET'])
 def moodvalid():
     
@@ -131,3 +169,4 @@ def moodvalid():
         db.session.commit()
         print(dummy.feeling)
     return redirect(url_for('views.charts'))
+    
