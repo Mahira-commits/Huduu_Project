@@ -113,8 +113,8 @@ def moodStudent():
             feeling = neutral
         elif sad!=None:
             feeling = sad
-             
-        '''
+
+
         # inputting meals from user
         one = request.form.get('1')
         two = request.form.get('2')
@@ -143,13 +143,12 @@ def moodStudent():
             num_hrs = seven_nine 
         elif ten!=None:
             num_hrs = ten 
-        '''
 
-        dummy = Progress(feeling=feeling,num_meals='3',num_hrs='4-6')
-        db.session.add(dummy)
-        db.session.commit()
-        print(dummy.feeling)
-        return render_template('moodStudent.html')
+        if num_hrs!=null and feeling !=null and num_meals != null:
+            dummy = Progress(feeling=feeling,num_meals=num_meals,num_hrs=num_hrs)
+            db.session.add(dummy)
+            db.session.commit()
+
     return render_template('moodStudent.html')
     
 @views.route('/myProgressStudent', methods = ['GET', 'POST'])
