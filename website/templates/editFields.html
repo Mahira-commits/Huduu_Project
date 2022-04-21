@@ -93,10 +93,9 @@
 	</nav>
 	<!-- Navbar End -->
 
-
-
 	<!-- Appointment Form -->
 	<center>
+		<div class="col-lg-6 col-md-10 ">
 	<section class="section appoinment wow fadeInUp">
 		<div class="container">
 			<div class="row align-items-center">
@@ -123,12 +122,11 @@
 									<div class="form-group">
 										<select class="form-control" name="counselor" id="select_counselor">
 											<!-- add a for loop to get the names of the counselors-->
-												<option value="" disabled>Select Counselor</option>
-											{%for item in counselorNames:%}
-											<option>{{item}}</option>
+											<option value={{cslID}} selected>{{cslName}}</option>
+											{%for n in counselorNames%}
+											<option value={{counselorIDs[loop.index0]}}>{{n}}</option>
 											{%endfor%}
 											</select><br>
-										
 									</div>
 								</div>
 								<div class="col-lg-6">
@@ -149,24 +147,19 @@
 
 								<div class="col-lg-6">
 									<div class="form-group">
-										<select class="form-control"  name= "time" id="select_time">
-											<option value="" disabled>Select Time</option>
-											<option value="8">8:00 A.M. - 9:00 A.M.</option>
-											<option value="9">9:00 A.M. - 10:00 A.M.</option>
-											<option value="10">10:00 A.M. - 11:00 A.M.</option>
-											<option value="11">11:00 A.M. - 12:00 P.M.</option>
-											<option value="12">12:00 P.M. - 1:00 P.M.</option>
-											<option value="13">1:00 P.M. - 2:00 P.M.</option>
-											<option value="14">2:00 P.M. - 3:00 P.M.</option>
-											<option value="15">3:00 P.M. - 4:00 P.M.</option>
-											<option value="16">4:00 P.M.- 5:00 P.M.</option>
+										<select class="form-control" name= "time" id="select_time">
+											<option value={{appointment.time}} selected>{{appointment.time}}</option>
+											{%for n in lstTimes%}
+											<option value={{n}}>{{n}}</option>
+											{%endfor%}
+											</select><br>
 										</select><br>
 									</div>
 								</div>
 							</div>
 							<div class="form-group-2 mb-4">
 								<textarea name="message" value={{appointment.message}} id="message" class="form-control"
-									rows="6" placeholder="Your Message"></textarea>
+									rows="6">{{appointment.message}}</textarea>
 							</div>
 								<button href="" type = "submit" class="btn btn-primary py-md-3 px-md-5">Edit Appointment</button>
 						</form>
@@ -174,6 +167,7 @@
 				</div>
 		</div>
 	</section>
+</div>
 </center>
 
 

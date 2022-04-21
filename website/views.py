@@ -10,7 +10,29 @@ views=Blueprint('views', __name__)
 
 @views.route('/')
 def index():
+    db.drop_all()
+    db.create_all()
+
+    #manually adding users
+    meriam = User(username="Meriam123", password="Meriam123", name="Meriam Mkadmi", email="meriam@gmail.com", id=83776, phone="0562401285", userType=0)
+    isra = User(username="Isra123", password="Isra123", name="Isra Hasan", email="isra@gmail.com", id=85609, phone="0501234567", userType=0)
+    adham = User(username="Adham123", password="Adham123", name="Adham Galal", email="adham@gmail.com", id=77846, phone="0509876543", userType=1)
+    lolya = User(username="Lolya123", password="Lolya123", name="Lolya Younes", email="lolya@gmail.com", id=88888, phone="0501122334", userType=1)
+    
+    #manually adding appointments
+    app1 = Appointments(name="Meriam Mkadmi", studentID=83776, counselor=77846,  phone="0562401285", date="21/04/2022",time="8:00 A.M. - 9:00 A.M.", message="Help1")
+    app2 = Appointments(name="Meriam Mkadmi", studentID=83776, counselor=88888,  phone="0562401285", date="22/04/2022",time="8:00 A.M. - 9:00 A.M.", message="Help2")
+    
+    db.session.add(meriam)
+    db.session.add(isra)
+    db.session.add(adham)
+    db.session.add(lolya)
+    db.session.add(app1)
+    db.session.add(app2)
+    db.session.commit()
+
     return render_template('index.html')
+
 @views.route('/indexStudent')
 def indexStudent():
     return render_template('indexStudent.html')
@@ -113,11 +135,25 @@ def editFields():
         print(id)
         appointment = Appointments.query.get(id)
         counselorNames=[]
+        counselorIDs=[]
+        cslID = appointment.counselor
+        cslName = (User.query.filter_by(id=cslID)).first().name
+
+        lstTimes = ["8:00 A.M. - 9:00 A.M.", "9:00 A.M. - 10:00 A.M.", "10:00 A.M. - 11:00 A.M.", "11:00 A.M. - 12:00 P.M.", "12:00 P.M. - 1:00 P.M.", "1:00 P.M. - 2:00 P.M.", "2:00 P.M. - 3:00 P.M.", "3:00 P.M. - 4:00 P.M.", "4:00 P.M. - 5:00 P.M."]
+
+        if appointment.time in lstTimes:
+            lstTimes.remove(appointment.time)
+        print(lstTimes)
+
         for x in User.query.all():
             if x.userType==1:
-                counselorNames.append(x.name)
+                if x.name != cslName:
+                    counselorNames.append(x.name)
+                    counselorIDs.append(x.id)
+        
         print(counselorNames)
-    return render_template('editFields.html', counselorNames=counselorNames, appointment=appointment, id=id)
+        print(cslName)
+    return render_template('editFields.html', counselorNames=counselorNames, counselorIDs=counselorIDs, cslName=cslName, cslID=cslID, appointment=appointment, id=id, lstTimes=lstTimes)
 
 @views.route('/editAppointment', methods = ['GET', 'POST'])
 def editAppointment():
@@ -133,7 +169,6 @@ def editAppointment():
         print(appointment.counselor, appointment.date, appointment.time, appointment.message)
         db.session.commit()
     return redirect(url_for('views.viewAppointmentStudent'))
-
 
 
 '''
@@ -198,7 +233,7 @@ def moodStudent():
             num_hrs = ten 
 
         if num_hrs!=null and feeling !=null and num_meals != null:
-            dummy = Progress(feeling=feeling,num_meals=num_meals,num_hrs=num_hrs)
+            dummy = Progress(feeling=feeling,num_meals="3",num_hrs="4-6")
             db.session.add(dummy)
             db.session.commit()
 

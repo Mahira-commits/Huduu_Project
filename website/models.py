@@ -33,16 +33,16 @@ class Appointments(db.Model):
     counselor=db.Column(db.Integer, nullable=False)
     date=db.Column(db.String(10), nullable=False)
     phone=db.Column(db.String(100), nullable=False)
-    time=db.Column(db.String(10), nullable=False)
+    time=db.Column(db.String(50), nullable=False)
     message = db.Column(db.String(1000))
 
-'''
 class StudentTips(db.Model):
-    studentId=db.Column(db.Integer,db.ForeignKey('User.id'),primary_key=True,  nullable=False)
-    counselorId=db.Column(db.Integer,db.ForeignKey('User.id'), primary_key=True, nullable=False)
+    postID = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
+    studentId=db.Column(db.Integer, nullable=False)
+    counselorId=db.Column(db.Integer, nullable=False)
     message = db.Column(db.String(1000), nullable=False)
 
 class BroadcastTips(db.Model):
-    studentId=db.Column(db.Integer,db.ForeignKey('User.id'),primary_key=True, nullable=False)
-    message = db.Column(db.String(1000), nullable=False, primary_key=True)
-'''
+    postID = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
+    counselorID=db.Column(db.Integer, nullable=False)
+    message = db.Column(db.String(1000), nullable=False)
