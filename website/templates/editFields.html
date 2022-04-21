@@ -55,15 +55,14 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav ms-auto p-4 p-lg-0">
-				<a href="indexStudent.html" class="nav-item nav-link">Home</a> <a
-					href="aboutStudent.html" class="nav-item nav-link">About</a>
+				<a href="indexStudent.html" class="nav-item nav-link">Home</a>
+				<a href="aboutStudent.html" class="nav-item nav-link">About</a>
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link active dropdown-toggle"
 						data-bs-toggle="dropdown">Appointments</a>
 					<div class="dropdown-menu fade-down m-0">
-						<a href="bookAppointmentStudent.html" class="dropdown-item">Book
-							Appointments</a> <a href="viewAppointmentStudent.html"
-							class="dropdown-item">View Appointments</a>
+						<a href="bookAppointmentStudent.html" class="dropdown-item">Book Appointments</a>
+						<a href="viewAppointmentStudent.html" class="dropdown-item">View Appointments</a>
 					</div>
 				</div>
 				<div class="nav-item dropdown">
@@ -92,66 +91,90 @@
 				class="fa fa-arrow-right ms-3"></i></a>
 		</div>
 	</nav>
-	<br>
 	<!-- Navbar End -->
 
-	<div class="container">
-		<div class="text-center">
-			<h2 class="text-primary" style="font-size: 30px;">
-				<i class="fa fa-address-book"></i>
-			</h2>
-			<h6 class="section-title bg-white text-center text-primary">Upcoming Appointments</h6>
+
+
+	<!-- Appointment Form -->
+	<center>
+	<section class="section appoinment wow fadeInUp">
+		<div class="container">
+			<div class="row align-items-center">
+					<div class="appoinment-wrap mt-5 mt-lg-0">
+						<h2 class="mb-2 title-color">Edit Appoinment</h2>
+						<form id="#" class="appoinment-form" method="post" action="/editAppointment">
+							<div class="row">
+								<input name="id" value={{appointment.id}} id="id" type="hidden" class="form-control">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input disabled name="name" value={{appointment.name}} id="name" type="text" class="form-control"
+											placeholder="Full Name">
+									</div>
+									<br>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input disabled name="aus_id" value={{appointment.studentID}} id="aus_id" type="text"
+											class="form-control" placeholder="AUS ID">
+									</div>
+									<br>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<select class="form-control" name="counselor" id="select_counselor">
+											<!-- add a for loop to get the names of the counselors-->
+												<option value="" disabled>Select Counselor</option>
+											{%for item in counselorNames:%}
+											<option>{{item}}</option>
+											{%endfor%}
+											</select><br>
+										
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input disabled name="phone" value={{appointment.phone}} id="phone" type="text"
+											class="form-control" placeholder="Phone">
+									</div>
+									<br>
+								</div>
+
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input name="date" id="date"  value={{appointment.date}} type="text" class="form-control"
+											placeholder="dd/mm/yyyy">
+									</div>
+									<br>
+								</div>
+
+								<div class="col-lg-6">
+									<div class="form-group">
+										<select class="form-control"  name= "time" id="select_time">
+											<option value="" disabled>Select Time</option>
+											<option value="8">8:00 A.M. - 9:00 A.M.</option>
+											<option value="9">9:00 A.M. - 10:00 A.M.</option>
+											<option value="10">10:00 A.M. - 11:00 A.M.</option>
+											<option value="11">11:00 A.M. - 12:00 P.M.</option>
+											<option value="12">12:00 P.M. - 1:00 P.M.</option>
+											<option value="13">1:00 P.M. - 2:00 P.M.</option>
+											<option value="14">2:00 P.M. - 3:00 P.M.</option>
+											<option value="15">3:00 P.M. - 4:00 P.M.</option>
+											<option value="16">4:00 P.M.- 5:00 P.M.</option>
+										</select><br>
+									</div>
+								</div>
+							</div>
+							<div class="form-group-2 mb-4">
+								<textarea name="message" value={{appointment.message}} id="message" class="form-control"
+									rows="6" placeholder="Your Message"></textarea>
+							</div>
+								<button href="" type = "submit" class="btn btn-primary py-md-3 px-md-5">Edit Appointment</button>
+						</form>
+					</div>
+				</div>
 		</div>
-	</div>
-
-	<div class="table-responsive custom-table-responsive"
-		style="padding-left: 100px; padding-right: 100px;">
-
-		<table class="table custom-table">
-			<thead>
-				<tr>
-					<th scope="col" style="color: #06BBCC;">Appointment ID</th>
-					<th scope="col" style="color: #06BBCC;">Full Name</th>
-					<th scope="col" style="color: #06BBCC;">AUS ID</th>
-					<th scope="col" style="color: #06BBCC;">Counselor</th>
-					<th scope="col" style="color: #06BBCC;">Phone</th>
-					<th scope="col" style="color: #06BBCC;">Date</th>
-					<th scope="col" style="color: #06BBCC;">Time</th>
-					
-					
-					<th scope="col">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-
-				{% for item in ap %}
-				<tr scope="row">
-					<td>{{item.id}}</td>
-					<td>{{item.name}}</td>
-					<td>{{item.studentID}}</td>
-					<td>{{namesC[loop.index0]}}</td>
-					<td>{{item.phone}}</td>
-					<td>{{item.date}}</td>
-					<td>{{item.time}}</td>
-
-					<form id="#" class="delete-form" method="post" action="/deleteAppointment">
-					<input type=hidden name="delete" value= {{item.id}}>
-					<td><button href=""><i class="fa fa-ban"></i></button></td> </form>
-
-					<form id="#" class="edit-form" method="post" action="/editFields">
-					<input type=hidden name="edit" value= {{item.id}}>
-					<td><button href=""><i class="fa fa-pencil-alt"></i></button></td></form>
-				</tr>
-				{%endfor%}
-				
-			</tbody>
-		</table>
-	</div>
-
-
-	</div>
-
-	</div>
+	</section>
+</center>
 
 
 	<!-- Footer Start -->

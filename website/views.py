@@ -2,7 +2,7 @@ from time import sleep
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import null
-from .models import User, Progress
+from .models import User, Progress, Appointments
 from . import db
 import json
 
@@ -57,9 +57,6 @@ def contactStudent():
 def register():
     return render_template('register.html')
 '''
-@views.route('/viewAppointmentStudent', methods = ['GET', 'POST'])
-def viewAppointmentStudent():
-    return render_template('viewAppointmentStudent.html')
 
 @views.route('/viewTipsCounselor', methods = ['GET', 'POST'])
 def viewTipsCounselor():
@@ -69,11 +66,12 @@ def viewTipsCounselor():
 @views.route('/bookAppointmentStudent', methods = ['GET', 'POST'])
 def bookAppointmentStudent():
     if request.method == 'POST':
-        name, aus_id, counselor, phone, date, time= request.form['name'],request.form['aus_id'],request.form['counselor'], request.form['phone'], request.form['date'],request.form['time']
-        #appointment1 = Appointments(name=name,aus_id=aus_id, counselor=counselor,  phone=phone, date=date,time=time)
+        name, aus_id, counselor, phone, date, time, message= request.form['name'],request.form['aus_id'],request.form['counselor'], request.form['phone'], request.form['date'],request.form['time'],request.form['message']
+        counselorID=User.query.filter_by(name=counselor).first().id
+        appointment1 = Appointments(name=name, studentID=int(aus_id), counselor=counselorID,  phone=phone, date=date,time=time, message=message)
         print(name, aus_id, counselor,phone, date, time)
-        #db.session.add(appointment1)
-        #db.session.commit()
+        db.session.add(appointment1)
+        db.session.commit()
         return render_template('confirmation.html')
         
     counselorNames=[]
@@ -82,6 +80,61 @@ def bookAppointmentStudent():
             counselorNames.append(x.name)
     print(counselorNames)
     return render_template('bookAppointmentStudent.html', label=counselorNames)
+####view the booking
+
+@views.route('/viewAppointmentStudent', methods = ['GET', 'POST'])
+def viewAppointmentStudent():
+    ap=Appointments.query.filter_by(studentID=current_user.id).all()
+    namesC=[]
+    for i in range(len(ap)):
+        counselorName=(User.query.filter_by(id=ap[i].counselor).first()).name
+        namesC.append(counselorName)
+
+    return render_template('viewAppointmentStudent.html', ap=ap, namesC=namesC)
+
+####deleting the appointment s
+    
+@views.route('/deleteAppointment', methods = ['GET', 'POST'])
+def deleteAppointment():
+    if request.method == 'POST':
+        id= request.form['delete']
+        print(id)
+        appointment = Appointments.query.get(id)
+        db.session.delete(appointment)
+        db.session.commit()
+        return redirect(url_for('views.viewAppointmentStudent'))
+    return render_template('viewAppointmentStudent.html')
+
+
+@views.route('/editFields', methods = ['GET', 'POST'])
+def editFields():
+    if request.method == 'POST':
+        id= request.form['edit']
+        print(id)
+        appointment = Appointments.query.get(id)
+        counselorNames=[]
+        for x in User.query.all():
+            if x.userType==1:
+                counselorNames.append(x.name)
+        print(counselorNames)
+    return render_template('editFields.html', counselorNames=counselorNames, appointment=appointment, id=id)
+
+@views.route('/editAppointment', methods = ['GET', 'POST'])
+def editAppointment():
+    if request.method == 'POST':
+        print("inside edit Appointment ")
+        id, counselor, date, time, message= request.form['id'],request.form['counselor'], request.form['date'],request.form['time'], request.form['message']
+        print(id,counselor,date,time,message)
+        appointment = Appointments.query.get(id)
+        appointment.counselor=counselor
+        appointment.date=date
+        appointment.time=time
+        appointment.message=message
+        print(appointment.counselor, appointment.date, appointment.time, appointment.message)
+        db.session.commit()
+    return redirect(url_for('views.viewAppointmentStudent'))
+
+
 
 '''
 #Adding dummy records to test on

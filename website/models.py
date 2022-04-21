@@ -3,7 +3,7 @@ from . import db
 from flask_login import UserMixin
 import datetime
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80),nullable=False)
     name = db.Column(db.String(80), nullable=False)
@@ -25,15 +25,18 @@ class Progress(db.Model):
     num_meals = db.Column(db.String(2), nullable=False)
     # 0-3,4-6,7-9,10+
     num_hrs = db.Column(db.String(5), nullable=False)
-'''
+
 class Appointments(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
     name=db.Column(db.String(150), nullable=False)
-    studentId=db.Column(db.Integer,db.ForeignKey('User.id'),primary_key=True, nullable=False)
-    counselorId=db.Column(db.Integer,db.ForeignKey('User.id'), nullable=False)
-    date=db.Column(db.String(10),primary_key=True, nullable=False)
-    time=db.Column(db.String(10),primary_key=True, nullable=False)
+    studentID=db.Column(db.Integer, nullable=False)
+    counselor=db.Column(db.Integer, nullable=False)
+    date=db.Column(db.String(10), nullable=False)
+    phone=db.Column(db.String(100), nullable=False)
+    time=db.Column(db.String(10), nullable=False)
     message = db.Column(db.String(1000))
 
+'''
 class StudentTips(db.Model):
     studentId=db.Column(db.Integer,db.ForeignKey('User.id'),primary_key=True,  nullable=False)
     counselorId=db.Column(db.Integer,db.ForeignKey('User.id'), primary_key=True, nullable=False)

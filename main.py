@@ -4,7 +4,7 @@
 from website import db
 from  website import create_app
 from flask import Flask
-from website.models import Progress
+from website.models import Progress, Appointments
 
 ##from flask_bcrypt import check_password_hash, login_user
 ##app = Flask(__name__)
@@ -31,14 +31,6 @@ def deletion(id):
 '''
 
 if __name__ == '__main__':
-    ##db.create_all()
-
-    ## db.session.add(user1)
-    ##db.session.commit()
     app.run(debug=True)
-
-    #done InshaAllah
-    #test
-    
     
     
