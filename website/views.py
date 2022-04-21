@@ -2,7 +2,7 @@ from time import sleep
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import null
-from .models import User, Progress, Appointments
+from .models import User, Progress, Appointments, StudentTips
 from . import db
 import json
 
@@ -22,6 +22,10 @@ def index():
     #manually adding appointments
     app1 = Appointments(name="Meriam Mkadmi", studentID=83776, counselor=77846,  phone="0562401285", date="21/04/2022",time="8:00 A.M. - 9:00 A.M.", message="Help1")
     app2 = Appointments(name="Meriam Mkadmi", studentID=83776, counselor=88888,  phone="0562401285", date="22/04/2022",time="8:00 A.M. - 9:00 A.M.", message="Help2")
+    app3 = Appointments(name="Isra Hasan", studentID=85609, counselor=88888,  phone="0501234567", date="22/05/2022",time="9:00 A.M. - 10:00 A.M.", message="Help2")
+    app4 = Appointments(name="Isra Hasan", studentID=85609, counselor=77846,  phone="0501234567", date="22/06/2022",time="9:00 A.M. - 10:00 A.M.", message="Help2")
+
+
     
     db.session.add(meriam)
     db.session.add(isra)
@@ -29,6 +33,10 @@ def index():
     db.session.add(lolya)
     db.session.add(app1)
     db.session.add(app2)
+    db.session.add(app3)
+    db.session.add(app4)
+
+
     db.session.commit()
 
     return render_template('index.html')
@@ -54,15 +62,6 @@ def aboutCounselor():
 @views.route('/aboutStudent', methods = ['GET', 'POST'])
 def aboutStudent():
     return render_template('aboutStudent.html')
-
-@views.route('/addTipCounselor', methods = ['GET', 'POST'])
-def addTipCounselor():
-    return render_template('addTipCounselor.html')
-
-@views.route('/appointmentCounselor', methods = ['GET', 'POST'])
-def appointmentCounselor():
-    return render_template('appointmentCounselor.html')
-
 @views.route('/confirmation', methods = ['GET', 'POST'])
 def confirmation():
     return render_template('confirmation.html')
@@ -79,10 +78,6 @@ def contactStudent():
 def register():
     return render_template('register.html')
 '''
-
-@views.route('/viewTipsCounselor', methods = ['GET', 'POST'])
-def viewTipsCounselor():
-    return render_template('viewTipsCounselor.html')
 
 #####booking
 @views.route('/bookAppointmentStudent', methods = ['GET', 'POST'])
@@ -102,8 +97,8 @@ def bookAppointmentStudent():
             counselorNames.append(x.name)
     print(counselorNames)
     return render_template('bookAppointmentStudent.html', label=counselorNames)
-####view the booking
 
+####view the booking for students
 @views.route('/viewAppointmentStudent', methods = ['GET', 'POST'])
 def viewAppointmentStudent():
     ap=Appointments.query.filter_by(studentID=current_user.id).all()
@@ -113,6 +108,17 @@ def viewAppointmentStudent():
         namesC.append(counselorName)
 
     return render_template('viewAppointmentStudent.html', ap=ap, namesC=namesC)
+######counselor viewing their appointments
+@views.route('/viewAppointmentCounselor', methods = ['GET', 'POST'])
+def appointmentCounselor():
+    ap=Appointments.query.filter_by(counselor=current_user.id).all()
+    namesS=[]
+    for i in range(len(ap)):
+        studentName=(User.query.filter_by(id=ap[i].studentID).first()).name
+        namesS.append(studentName)
+
+    return render_template('viewAppointmentCounselor.html', ap=ap, namesS=namesS)
+    ##return render_template('appointmentCounselor.html')
 
 ####deleting the appointment s
     
@@ -170,7 +176,30 @@ def editAppointment():
         db.session.commit()
     return redirect(url_for('views.viewAppointmentStudent'))
 
+####add tips by counselor
+@views.route('/addTipCounselor', methods = ['GET', 'POST'])
+def addTipCounselor():
+    if request.method == 'POST':
+        studentId, message=request.form['studentId'], request.form['message']
+        
+        counselorId=current_user.id 
+        tip1 = StudentTips(studentId = studentId, counselorId=counselorId, message=message)
+        print(studentId,counselorId, message)
+        db.session.add(tip1)
+        db.session.commit()
 
+    return render_template('addTipCounselor.html')
+@views.route('/viewTipsStudent', methods = ['GET', 'POST'])
+def viewTipsStudent():
+    ap=StudentTips.query.filter_by(studentId=current_user.id).all()
+    namesC=[]
+    namesS=[]
+    for i in range(len(ap)):
+        counselorName=(User.query.filter_by(id=ap[i].counselorId).first()).name
+        studentName=(User.query.filter_by(id=ap[i].studentId).first()).name
+        namesC.append(counselorName)
+        namesS.append(studentName)
+    return render_template('viewTipsStudent.html', ap=ap, namesC=namesC, namesS=namesS)
 '''
 #Adding dummy records to test on
 stat1 = dummyTest(feeling='happy',num_meals='1',num_hrs ='0-3')

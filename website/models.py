@@ -41,8 +41,9 @@ class StudentTips(db.Model):
     studentId=db.Column(db.Integer, nullable=False)
     counselorId=db.Column(db.Integer, nullable=False)
     message = db.Column(db.String(1000), nullable=False)
-
+'''
 class BroadcastTips(db.Model):
     postID = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
     counselorID=db.Column(db.Integer, nullable=False)
     message = db.Column(db.String(1000), nullable=False)
+'''

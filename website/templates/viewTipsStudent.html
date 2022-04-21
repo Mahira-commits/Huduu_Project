@@ -110,21 +110,23 @@
 		<table class="table custom-table">
 			<thead>
 				<tr>
-					<th scope="col" style="color: #06BBCC;">Student Name</th>
 					<th scope="col" style="color: #06BBCC;">Student ID</th>
+					<th scope="col" style="color: #06BBCC;">Student Name</th>
+					<th scope="col" style="color: #06BBCC;">Counselor Name</th>
 					<th scope="col" style="color: #06BBCC;">Tip&emsp;&emsp;&emsp;</th>
-					<th scope="col">Action</th>
+					
 				</tr>
 			</thead>
 			<tbody>
-				<tr scope="row">
-					<td>James Yates</td>
-					<td>1392</td>
-					<td>James Yates</td>
-					<td><a href="index.html"><i class="fa fa-ban"></i></a>&emsp;<a
-						href="index.html"><i class="fa fa-pencil-alt"></i></a></td>
+					{% for item in ap %}
+					<tr scope="row">
+					<td>{{item.studentId}}</td>
+					<td>{{namesS[loop.index0]}}</td>
+					<td>{{namesC[loop.index0]}}</td>
+					<td>{{item.message}}</td>
+					
 				</tr>
-
+				{%endfor%}
 			</tbody>
 		</table>
 	</div>
