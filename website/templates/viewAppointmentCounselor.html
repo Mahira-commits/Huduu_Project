@@ -65,8 +65,7 @@
 						data-bs-toggle="dropdown">Appointments</a>
 					<div class="dropdown-menu fade-down m-0">
 						<!--bookAppointmentStudent.html-->
-						<a href="{{url_for('views.bookAppointmentStudent')}}" class="dropdown-item">Book
-							Appointments</a> <a href="{{url_for('views.viewAppointmentStudent')}}"
+						 <a href="{{url_for('views.viewAppointmentCounselor')}}"
 							class="dropdown-item">View Appointments</a>
 						<!--viewAppointmentStudent.html-->
 					</div>
@@ -74,27 +73,21 @@
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle"
 						data-bs-toggle="dropdown">My Profile</a>
-					<div class="dropdown-menu fade-down m-0">
-						<!--prgoressStudent.html-->
-						<a href="{{url_for('views.myProgressStudent')}}" class="dropdown-item">My
-							Progress</a> <a href="{{url_for('views.moodStudent')}}" class="dropdown-item">Today's
-							Mood</a>
-						<!--moodStudent.html-->
-					</div>
+					
 				</div>
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle"
 						data-bs-toggle="dropdown">Tips</a>
 					<div class="dropdown-menu fade-down m-0">
 						<!--personalTipsStudent.html-->
-						<a href="{{url_for('views.personalTipsStudent')}}" class="dropdown-item">Personal
-							Tips</a> <a href="{{url_for('views.generaltipsStudent')}}" class="dropdown-item">General
+						<a href="{{url_for('views.addTipCounselor')}}" class="dropdown-item">Personal
+							Tips</a> <a href="{{url_for('views.addTipCounselor')}}" class="dropdown-item">General
 							Tips</a>
 						<!--generalTipsStudent.html-->
 					</div>
 				</div>
 				<!--contactStudent.html-->
-				<a href="contactStudent" class="nav-item nav-link">Contact
+				<a href="{{url_for('views.contactCounselor')}}" class="nav-item nav-link">Contact
 					Us</a>
 			</div>
 			<!--index.html-->

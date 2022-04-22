@@ -19,12 +19,9 @@ class User(db.Model, UserMixin):
 '''
 class Progress(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
-    #happy, neutral, sad
-    feeling = db.Column(db.String(10), nullable=False)
-    #1,2,3+ for 1,2,3+ meals
-    num_meals = db.Column(db.String(2), nullable=False)
-    # 0-3,4-6,7-9,10+
-    num_hrs = db.Column(db.String(5), nullable=False)
+    value=db.Column(db.String(10), nullable=False)
+    studentID = db.Column(db.Integer, nullable=False)
+    type = db.Column(db.String(10), nullable=False)
 
 class Appointments(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)

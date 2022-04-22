@@ -108,6 +108,7 @@ def viewAppointmentStudent():
         namesC.append(counselorName)
 
     return render_template('viewAppointmentStudent.html', ap=ap, namesC=namesC)
+
 ######counselor viewing their appointments
 @views.route('/viewAppointmentCounselor', methods = ['GET', 'POST'])
 def appointmentCounselor():
@@ -176,6 +177,8 @@ def editAppointment():
         db.session.commit()
     return redirect(url_for('views.viewAppointmentStudent'))
 
+
+
 ####add tips by counselor
 @views.route('/addTipCounselor', methods = ['GET', 'POST'])
 def addTipCounselor():
@@ -218,69 +221,52 @@ stat1 = dummyTest(feeling='happy',num_meals='1',num_hrs ='0-3')
 @views.route('/moodStudent',methods = ['POST', 'GET'])
 def moodStudent():
     if request.method == 'POST':
-        # inputting moods from user
-        happy = request.form.get('happy')
-        neutral = request.form.get('neutral')
-        sad = request.form.get('sad')
-        feeling = null
+        
+        feeling = request.form.get('btn')
+        meal = request.form.get('btn2')
+        rest = request.form.get('btn3')
 
-        if happy!=None:
-            feeling=happy
-        elif neutral!=None:
-            feeling = neutral
-        elif sad!=None:
-            feeling = sad
-
-
-        # inputting meals from user
-        one = request.form.get('1')
-        two = request.form.get('2')
-        three = request.form.get('3')
-        num_meals = null
-
-        if one!=None:
-            num_meals=one
-        elif two!=None:
-            num_meals=two
-        elif three!=None:
-            num_meals = three 
-
-        # inputting sleep hours from user
-        zero_three = request.form.get('0-3')
-        four_six = request.form.get('4-6')
-        seven_nine = request.form.get('7-9')
-        ten = request.form.get('10')
-        num_hrs = null
-
-        if zero_three!=None:
-            num_hrs=zero_three
-        elif four_six!=None:
-            num_hrs=four_six
-        elif seven_nine!=None:
-            num_hrs = seven_nine 
-        elif ten!=None:
-            num_hrs = ten 
-
-        if num_hrs!=null and feeling !=null and num_meals != null:
-            dummy = Progress(feeling=feeling,num_meals="3",num_hrs="4-6")
+        if feeling != None:
+            dummy = Progress(studentID=int(current_user.id), type="mood", value=feeling)
+            db.session.add(dummy)
+            db.session.commit()
+        if meal != None:
+            dummy = Progress(studentID=int(current_user.id), type="meal", value=meal)
+            db.session.add(dummy)
+            db.session.commit()
+        if rest != None:
+            dummy = Progress(studentID=int(current_user.id), type="rest", value=rest)
             db.session.add(dummy)
             db.session.commit()
 
     return render_template('moodStudent.html')
-    
-@views.route('/myProgressStudent', methods = ['GET', 'POST'])
-def myProgressStudent():
-    mooddict = {}
-    for dummy in Progress.query.all():
-        feeling = dummy.feeling
-        if feeling not in mooddict.keys():
-            mooddict[feeling] = 0
-    for dummy in Progress.query.all():
-        feeling= dummy.feeling
-        mooddict[feeling] = mooddict[feeling] + 1
-    
-    labels = list(mooddict.keys())
-    values = list(mooddict.values())
-    print(labels)
-    print(values)
-    return render_template('myProgressStudent.html', label = json.dumps(labels), value= json.dumps(values))
+
+@views.route('/tempMood',methods = ['POST', 'GET'])
+def tempMood():
+    if request.method == 'POST':
+        moodHappy = Progress.query.filter_by(studentID=current_user.id, value="happy").count()
+        moodNeutral = Progress.query.filter_by(studentID=current_user.id, value="neutral").count()
+        moodSad = Progress.query.filter_by(studentID=current_user.id, value="sad").count()
+        lstMood = ["happy", "neutral", "sad"]
+        valMood = [moodHappy, moodNeutral, moodSad]
+
+        mealOne = Progress.query.filter_by(studentID=current_user.id, value="1").count()
+        mealTwo = Progress.query.filter_by(studentID=current_user.id, value="2").count()
+        mealThree = Progress.query.filter_by(studentID=current_user.id, value="3").count()
+        lstMeal = ["1", "2", "3"]
+        valMeal = [mealOne, mealTwo, mealThree]
+
+        rest03 = Progress.query.filter_by(studentID=current_user.id, value="1-3").count()
+        rest46 = Progress.query.filter_by(studentID=current_user.id, value="4-6").count()
+        rest79 = Progress.query.filter_by(studentID=current_user.id, value="7-9").count()
+        rest10 = Progress.query.filter_by(studentID=current_user.id, value="10").count()
+        lstRest = ["0-3", "4-6", "7-9", "10"]
+        valRest = [rest03, rest46, rest79, rest10]
+
+    return render_template('myProgressStudent.html',
+    lstMood = json.dumps(lstMood),
+    valMood= json.dumps(valMood),
+    lstMeal = json.dumps(lstMeal),
+    valMeal= json.dumps(valMeal),
+    lstRest = json.dumps(lstRest),
+    valRest= json.dumps(valRest))
