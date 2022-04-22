@@ -264,25 +264,25 @@ def myProgressStudent():
 
 @views.route('/tempMood',methods = ['POST', 'GET'])
 def tempMood():
-    if request.method == 'POST':
-        moodHappy = Progress.query.filter_by(studentID=current_user.id, value="happy").count()
-        moodNeutral = Progress.query.filter_by(studentID=current_user.id, value="neutral").count()
-        moodSad = Progress.query.filter_by(studentID=current_user.id, value="sad").count()
-        lstMood = ["happy", "neutral", "sad"]
-        valMood = [moodHappy, moodNeutral, moodSad]
+   
+    moodHappy = Progress.query.filter_by(studentID=current_user.id, value="happy").count()
+    moodNeutral = Progress.query.filter_by(studentID=current_user.id, value="neutral").count()
+    moodSad = Progress.query.filter_by(studentID=current_user.id, value="sad").count()
+    lstMood = ["happy", "neutral", "sad"]
+    valMood = [moodHappy, moodNeutral, moodSad]
 
-        mealOne = Progress.query.filter_by(studentID=current_user.id, value="1").count()
-        mealTwo = Progress.query.filter_by(studentID=current_user.id, value="2").count()
-        mealThree = Progress.query.filter_by(studentID=current_user.id, value="3").count()
-        lstMeal = ["1", "2", "3"]
-        valMeal = [mealOne, mealTwo, mealThree]
+    mealOne = Progress.query.filter_by(studentID=current_user.id, value="1").count()
+    mealTwo = Progress.query.filter_by(studentID=current_user.id, value="2").count()
+    mealThree = Progress.query.filter_by(studentID=current_user.id, value="3").count()
+    lstMeal = ["1", "2", "3"]
+    valMeal = [mealOne, mealTwo, mealThree]
 
-        rest03 = Progress.query.filter_by(studentID=current_user.id, value="1-3").count()
-        rest46 = Progress.query.filter_by(studentID=current_user.id, value="4-6").count()
-        rest79 = Progress.query.filter_by(studentID=current_user.id, value="7-9").count()
-        rest10 = Progress.query.filter_by(studentID=current_user.id, value="10").count()
-        lstRest = ["0-3", "4-6", "7-9", "10"]
-        valRest = [rest03, rest46, rest79, rest10]
+    rest03 = Progress.query.filter_by(studentID=current_user.id, value="1-3").count()
+    rest46 = Progress.query.filter_by(studentID=current_user.id, value="4-6").count()
+    rest79 = Progress.query.filter_by(studentID=current_user.id, value="7-9").count()
+    rest10 = Progress.query.filter_by(studentID=current_user.id, value="10").count()
+    lstRest = ["0-3", "4-6", "7-9", "10"]
+    valRest = [rest03, rest46, rest79, rest10]
 
     return render_template('myProgressStudent.html',
     lstMood = json.dumps(lstMood),
