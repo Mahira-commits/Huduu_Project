@@ -52,7 +52,8 @@
 	<!-- Navbar Start -->
 	<nav
 		class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-		<a href="index.html"
+		<!--index.html-->
+		<a href="{{url_for('views.index')}}"
 			class="navbar-brand d-flex align-items-center px-4 px-lg-5">
 			<h2 class="m-0 text-primary">
 				<i class="fa fa-heartbeat me-3"></i>Huduu | هدوء
@@ -64,8 +65,10 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav ms-auto p-4 p-lg-0">
-				<a href="indexCounselor.html" class="nav-item nav-link ">Home</a> <a
-					href="aboutCounselor.html" class="nav-item nav-link active">About</a>
+				<!--indexCounselor.html-->
+				<a href="{{url_for('views.indexCounselor')}}" class="nav-item nav-link ">Home</a> <a
+					href="{{url_for('views.aboutCounselor')}}" class="nav-item nav-link active">About</a>
+				<!--aboutCounselor.html-->
 				<!--div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu fade-down m-0">
@@ -74,19 +77,24 @@
                         <a href="404.html" class="dropdown-item">404 Page</a>
                     </div>
                 </div-->
-				<a href="appointmentCounselor.html" class="nav-item nav-link">Appointment</a>
+				<!--appointmentCounselor.html-->
+				<a href="{{url_for('views.appointmentCounselor')}}" class="nav-item nav-link">Appointment</a>
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle"
 						data-bs-toggle="dropdown">Tips</a>
 					<div class="dropdown-menu fade-down m-0">
-						<a href="addTipCounselor.html" class="dropdown-item">Add Tip</a>
-						<a href="viewTipsCounselor.html" class="dropdown-item">View Tips</a>
+						<!--addTipCounselor.html-->
+						<a href="{{url_for('views.addTipCounselor')}}" class="dropdown-item">Add Tip</a>
+						<a href="{{url_for('views.viewTipsCounselor')}}" class="dropdown-item">View Tips</a>
+						<!--viewTipsScounselor.html-->
 					</div>
 				</div>
-				<a href="contactCounselor.html" class="nav-item nav-link ">Contact
+				<!--contactCounselor.html-->
+				<a href="{{url_for('views.contactCounselor')}}" class="nav-item nav-link ">Contact
 					Us</a>
 			</div>
-			<a href="index.html"
+			<!--index.html-->
+			<a href="{{url_for('views.index')}}"
 				class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Sign Out<i
 				class="fa fa-arrow-right ms-3"></i></a>
 		</div>
