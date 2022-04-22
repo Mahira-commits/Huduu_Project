@@ -16,27 +16,44 @@ def index():
     #manually adding users
     meriam = User(username="Meriam123", password="Meriam123", name="Meriam Mkadmi", email="meriam@gmail.com", id=83776, phone="0562401285", userType=0)
     isra = User(username="Isra123", password="Isra123", name="Isra Hasan", email="isra@gmail.com", id=85609, phone="0501234567", userType=0)
-    adham = User(username="Adham123", password="Adham123", name="Adham Galal", email="adham@gmail.com", id=77846, phone="0509876543", userType=1)
-    lolya = User(username="Lolya123", password="Lolya123", name="Lolya Younes", email="lolya@gmail.com", id=88888, phone="0501122334", userType=1)
-    
+    adham = User(username="Adham123", password="Adham123", name="Adham Galal", email="adham@gmail.com", id=77846, phone="0509876543", userType=0)
+    lolya = User(username="Lolya123", password="Lolya123", name="Lolya Younes", email="lolya@gmail.com", id=88888, phone="0501122334", userType=0)
+    mahira = User(username="Mahira123", password="Mahira123", name="Mahira Pathan", email="mahira@gmail.com", id=85003, phone="0501383252", userType=0)
+    #counselors
+    yara = User(username="Yara123", password="Yara123", name="Yara Aljabi", email="yara@gmail.com", id=1111, phone="0501234566", userType=1)
+    razan = User(username="Rewan123", password="Rewan123", name="Rewan Reda", email="razan@gmail.com", id=2222, phone="0502222222", userType=1)
+    rawan = User(username="Lamees123", password="Lamees123", name="Lamees Mamoun", email="Lamees@gmail.com", id=3333, phone="0502631008", userType=1)
+    abdulrahman = User(username="Abdul123", password="Abdul123", name="Abdelrahman Tolba", email="abdul@gmail.com", id=4444, phone="0502631009", userType=1)
+
     #manually adding appointments
-    app1 = Appointments(name="Meriam Mkadmi", studentID=83776, counselor=77846,  phone="0562401285", date="21/04/2022",time="8:00 A.M. - 9:00 A.M.", message="Help1")
-    app2 = Appointments(name="Meriam Mkadmi", studentID=83776, counselor=88888,  phone="0562401285", date="22/04/2022",time="8:00 A.M. - 9:00 A.M.", message="Help2")
-    app3 = Appointments(name="Isra Hasan", studentID=85609, counselor=88888,  phone="0501234567", date="22/05/2022",time="9:00 A.M. - 10:00 A.M.", message="Help2")
-    app4 = Appointments(name="Isra Hasan", studentID=85609, counselor=77846,  phone="0501234567", date="22/06/2022",time="9:00 A.M. - 10:00 A.M.", message="Help2")
+    app1 = Appointments(name="Meriam Mkadmi", studentID=83776, counselor=1111,  phone="0562401285", date="30/04/2022",time="8:00 A.M. - 9:00 A.M.", message="I have problems with anxiety and depression and would like your consultation")
+    app2 = Appointments(name="Meriam Mkadmi", studentID=83776, counselor=2222,  phone="0562401285", date="29/04/2022",time="8:00 A.M. - 9:00 A.M.", message="I find it hard to communicate with others and would like to seek help")
+    app3 = Appointments(name="Isra Hasan", studentID=85609, counselor=2222,  phone="0501234567", date="25/05/2022",time="9:00 A.M. - 10:00 A.M.", message="I am stressed and feel under a lot of pressure")
+    app4 = Appointments(name="Isra Hasan", studentID=85609, counselor=4444,  phone="0501234567", date="26/06/2022",time="9:00 A.M. - 10:00 A.M.", message="I find it hard ton conentrate on my studies due to stress and would like some help")
 
+    #manually adding student tips
+    tip1=StudentTips(studentId=85609, counselorId=1111,message="Don’t take your thoughts so seriously.")
+    tip2=StudentTips(studentId=83776, counselorId=2222,message="Learn self care and focus on yourself.")
+    tip3=StudentTips(studentId=83776, counselorId=2222,message="Do your best to remain a willing, accepting, and teachable person.")
+    tip4=StudentTips(studentId=83776, counselorId=3333,message="Remove the word should from your vocabulary as much as possible.")
 
-    
     db.session.add(meriam)
     db.session.add(isra)
     db.session.add(adham)
     db.session.add(lolya)
+    db.session.add(mahira)
+    db.session.add(yara)
+    db.session.add(razan)
+    db.session.add(rawan)
+    db.session.add(abdulrahman)
     db.session.add(app1)
     db.session.add(app2)
     db.session.add(app3)
     db.session.add(app4)
-
-
+    db.session.add(tip1)
+    db.session.add(tip2)
+    db.session.add(tip3)
+    db.session.add(tip4)
     db.session.commit()
 
     return render_template('index.html')
@@ -177,8 +194,6 @@ def editAppointment():
         db.session.commit()
     return redirect(url_for('views.viewAppointmentStudent'))
 
-
-
 ####add tips by counselor
 @views.route('/addTipCounselor', methods = ['GET', 'POST'])
 def addTipCounselor():
@@ -240,6 +255,12 @@ def moodStudent():
             db.session.commit()
 
     return render_template('moodStudent.html')
+
+
+@views.route('/myProgressStudent',methods = ['POST', 'GET'])
+def myProgressStudent():
+    return redirect(url_for('views.tempMood'))
+
 
 @views.route('/tempMood',methods = ['POST', 'GET'])
 def tempMood():

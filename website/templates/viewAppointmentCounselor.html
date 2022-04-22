@@ -60,12 +60,13 @@
 				<a href="{{url_for('views.indexStudent')}}" class="nav-item nav-link">Home</a> <a
 					href="{{url_for('views.aboutStudent')}}" class="nav-item nav-link">About</a>
 					<!--aboutStudent.html-->
+				
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link active dropdown-toggle"
 						data-bs-toggle="dropdown">Appointments</a>
 					<div class="dropdown-menu fade-down m-0">
 						<!--bookAppointmentStudent.html-->
-						 <a href="{{url_for('views.viewAppointmentCounselor')}}"
+						 <a href="{{url_for('views.appointmentCounselor')}}"
 							class="dropdown-item">View Appointments</a>
 						<!--viewAppointmentStudent.html-->
 					</div>
@@ -81,7 +82,6 @@
 					<div class="dropdown-menu fade-down m-0">
 						<!--personalTipsStudent.html-->
 						<a href="{{url_for('views.addTipCounselor')}}" class="dropdown-item">Personal
-							Tips</a> <a href="{{url_for('views.addTipCounselor')}}" class="dropdown-item">General
 							Tips</a>
 						<!--generalTipsStudent.html-->
 					</div>
