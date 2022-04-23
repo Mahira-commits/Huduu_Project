@@ -139,7 +139,7 @@ def appointmentCounselor():
     ##return render_template('appointmentCounselor.html')
 
 ####deleting the appointment s
-    
+   
 @views.route('/deleteAppointment', methods = ['GET', 'POST'])
 def deleteAppointment():
     if request.method == 'POST':
