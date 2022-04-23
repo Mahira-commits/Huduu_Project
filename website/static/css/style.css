@@ -5,6 +5,8 @@
 	--dark: #181d38;
 }
 
+audio { display:none;}
+
 .fw-medium {
 	font-weight: 600 !important;
 }
@@ -536,3 +538,5 @@
     background: transparent !important; }
   .custom-table tbody tr.active {
     opacity: .4; }
+
+

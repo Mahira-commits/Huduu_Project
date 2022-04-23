@@ -95,7 +95,7 @@
 	<div class="container-fluid p-0 mb-5">
 		<div class="owl-carousel header-carousel position-relative">
 			<div class="owl-carousel-item position-relative">
-				<img class="img-fluid" src="img/hadeel.jpeg" alt="">
+				<img class="img-fluid" src="{{ url_for('static', filename='img/ausindex.jpg') }}" alt="">
 				<div
 					class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
 					style="background: rgba(24, 29, 56, .7);">
@@ -107,14 +107,13 @@
 									Counseling Service for AUS Students</h5>
 								<h1 class="display-3 text-white animated slideInDown">AUS Counseling Service</h1>
 								<p class="fs-5 text-white mb-4 pb-2">Huduu 
-								    provides AUS students, employees, and
-									dependents free confidential counseling services in support of
+								    provides AUS students free confidential counseling services in support of
 									positive mental health and well-being.</p>
 								<!--about.html-->
 								<!--login.html-->
 								<a href="{{url_for('views.about')}}"
 									class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Learn
-									More</a> <a href="{{url_for('auth.login')}}"
+									More</a> <a href="{{url_for('auth.register')}}"
 									class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join
 									Now</a>
 							</div>
@@ -123,7 +122,7 @@
 				</div>
 			</div>
 			<div class="owl-carousel-item position-relative">
-				<img class="img-fluid" src="img/carousel-2.jpg" alt="">
+				<img class="img-fluid" src="{{ url_for('static', filename='img/ausindex2.jpg') }}" alt="">
 				<div
 					class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
 					style="background: rgba(24, 29, 56, .7);">
@@ -216,6 +215,8 @@
 	</div>
 	<!-- Footer End -->
 
+	<!-- Template Javascript -->
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i

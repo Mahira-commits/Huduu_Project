@@ -70,7 +70,7 @@
 
     // Header carousel
     $(".header-carousel").owlCarousel({
-        autoplay: true,
+        autoPlay: true,
         smartSpeed: 1500,
         items: 1,
         dots: false,
@@ -106,4 +106,3 @@
     });
     
 })(jQuery);
-
