@@ -57,8 +57,8 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav ms-auto p-4 p-lg-0">
 				<!--indexStudent.html-->
-				<a href="{{url_for('views.indexStudent')}}" class="nav-item nav-link">Home</a> <a
-					href="{{url_for('views.aboutStudent')}}" class="nav-item nav-link">About</a>
+				<a href="{{url_for('views.indexCounselor')}}" class="nav-item nav-link">Home</a> <a
+					href="{{url_for('views.aboutCounselor')}}" class="nav-item nav-link">About</a>
 					<!--aboutStudent.html-->
 				
 				<div class="nav-item dropdown">
@@ -73,16 +73,11 @@
 				</div>
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle"
-						data-bs-toggle="dropdown">My Profile</a>
-					
-				</div>
-				<div class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle"
 						data-bs-toggle="dropdown">Tips</a>
 					<div class="dropdown-menu fade-down m-0">
 						<!--personalTipsStudent.html-->
-						<a href="{{url_for('views.addTipCounselor')}}" class="dropdown-item">Personal
-							Tips</a>
+						<a href="{{url_for('views.addTipCounselor')}}" class="dropdown-item">Add
+							Tip</a>
 						<!--generalTipsStudent.html-->
 					</div>
 				</div>
@@ -114,7 +109,6 @@
 		<table class="table custom-table">
 			<thead>
 				<tr>
-					<th scope="col" style="color: #06BBCC;">Appointment ID</th>
 					<th scope="col" style="color: #06BBCC;">Full Name</th>
 					<th scope="col" style="color: #06BBCC;">AUS ID</th>
 					<th scope="col" style="color: #06BBCC;">Phone</th>
@@ -127,9 +121,8 @@
 
 				{% for item in ap %}
 				<tr scope="row">
-					<td>{{item.id}}</td>
-					<td>{{item.studentID}}</td>
 					<td>{{namesS[loop.index0]}}</td>
+					<td>{{item.studentID}}</td>
 					<td>{{item.phone}}</td>
 					<td>{{item.date}}</td>
 					<td>{{item.time}}</td>

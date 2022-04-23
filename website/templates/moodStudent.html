@@ -41,7 +41,7 @@
 	<!-- Navbar Start -->
 	<nav
 		class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-		<a href="{{url_for('views.index')}}"
+		<a href="{{url_for('views.indexStudent')}}"
 			class="navbar-brand d-flex align-items-center px-4 px-lg-5">
 			<h2 class="m-0 text-primary">
 				<i class="fa fa-heartbeat me-3"></i>Huduu | هدوء
@@ -90,22 +90,26 @@
 		</div>
 	</nav><br><br>
 	<!-- Navbar End -->
+	
 
 	<style> 
 		#leftbox {
 			float:left; 
-			width:10%;
+			width:15%;
 			height:100px;
+			padding-left: 235px;
 		}
 		#middlebox{
 			float:left; 
-			width:10%;
+			width:15%;
 			height:100px;
+			padding-left: 235px;
 		}
 		#rightbox{
 			float:left;
-			width:10%;
+			width:15%;
 			height:100px;
+			padding-left: 235px;
 		}
 		</style>
 
@@ -120,17 +124,18 @@
 				<h6 class="section-title bg-white text-center text-primary">Mood</h6>
 				<h1>How are you feeling today?</h1>
 			</div>
-			<form action="/moodStudent" method=POST>
+			<form action="/moodStudent"  method=POST>
 			<h2 class="text-primary" style="font-size: 100px; text-align:center; color: #06BBCC">
 			<div id="leftbox">
-				<button value="happy" name="btn"><i class="fa fa-smile"></i></button>
+				<button value="happy"  class="py-md-2 px-md-4" style="color: #06BBCC;" name="btn"><i class="fa fa-smile"></i></button>
 			</div>
 
 			<div id="middlebox">
-				<button value="neutral" name="btn" ><i class="fa fa-meh"></i></button>
+				<button value="neutral"  class="py-md-2 px-md-4" style="color: #06BBCC;" name="btn" ><i class="fa fa-meh"></i></button>
 			</div>
+
 			<div id="rightbox">
-				<button value="sad" name="btn" ><i class="fa fa-frown"></i></button>
+				<button value="sad"  class="py-md-2 px-md-4" style="color: #06BBCC;" name="btn" ><i class="fa fa-frown"></i></button>
 			</div>
 				</form>
 			</h2>
@@ -153,20 +158,21 @@
 				<h1>How many meals did you have today? </h1>
 			</div>
 			<form action="/moodStudent" method=POST>
-			<h2 class="text-primary" style="font-size: 100px; text-align:center; color: #06BBCC">
-			<div id="leftbox">
-				<button value="1" name="btn2">1</button>
+			<h2 class="text-primary" style="font-size: 50px; text-align:center; color: #06BBCC">
+			<div id="leftbox" style="padding-left: 250px; width: 10%;" >
+				<button value="1" class="py-md-2 px-md-4" style="color: #06BBCC;" name="btn2">1</button>
 			</div>
-			<div id="middlebox">
-				<button value="2" name="btn2">2</button>
+			<div id="middlebox" style="padding-left: 250px; width: 10%;">
+				<button value="2" class="py-md-2 px-md-4" style="color: #06BBCC;" name="btn2">2</button>
 			</div>
-			<div id="rightbox">
-				<button value="3" name="btn2">3+</button>
+			<div id="rightbox" style="padding-left: 250px; width: 10%;">
+				<button value="3" class="py-md-2 px-md-4" style="color: #06BBCC;"name="btn2">3+</button>
 			</div>
 				</form>
 			</h2>
 	</div><br>
 	</div>
+	<br><br><br><br><br><br><br>
 
 
 	<div class="container wow fadeInUp" data-wow-delay="0.1s">
@@ -179,23 +185,23 @@
 				<h1>How many hours of sleep did you have today? </h1>
 			</div>
 			<form action="/moodStudent" method=POST>
-			<h2 class="text-primary" style="font-size: 100px; text-align:center; color: #06BBCC">
-			<div id="leftbox">
-				<button value="0-3" name="btn3">0-3</button>
+			<h2 class="text-primary" style="font-size: 50px; text-align:center; color: #06BBCC">
+			<div id="leftbox" style="padding-left: 200px;">
+				<button value="0-3"  style="color: #06BBCC;" name="btn3">0-3</button>
 			</div>
-			<div id="leftbox">
-				<button value="4-6" name="btn3">4-6</button>
+			<div id="leftbox" style="padding-left: 200px;">
+				<button value="4-6"  style="color: #06BBCC;"  name="btn3">4-6</button>
 			</div>
-			<div id="rightbox">
-				<button value="7-9" name="btn3">7-9</button>
+			<div id="rightbox" style="padding-left: 200px;">
+				<button value="10" style="color: #06BBCC;" name="btn3">10+</button>
 			</div>
-			<div id="rightbox">
-				<button value="10" name="btn3">10+</button>
+			<div id="rightbox" style="padding-left: 200px;">
+				<button value="10" style="color: #06BBCC;" name="btn3">10+</button>
 			</div>
 				</form>
 			</h2>
 	</div><br>
-	</div>
+	</div><br><br><br><br><br><br><br><br>
 
 	<form action="/tempMood" method=POST>
 		<button href="" type = "submit" class="btn btn-primary py-md-3 px-md-5">Check Progress</button>

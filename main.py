@@ -4,7 +4,7 @@
 from website import db
 from  website import create_app
 from flask import Flask
-from website.models import Progress, Appointments
+from website.models import User, Progress, Appointments, StudentTips
 
 ##from flask_bcrypt import check_password_hash, login_user
 ##app = Flask(__name__)
@@ -29,6 +29,8 @@ def deletion(id):
     return redirect(url_for('users'))
 
 '''
+
+
 if __name__ == '__main__':
     app.run(debug=True)
     

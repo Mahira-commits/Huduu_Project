@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 
+
 db = SQLAlchemy()
 DB_NAME = "Huduu.db"
 
@@ -33,7 +34,6 @@ def create_app():
         return User.query.get(int(id))
 
     return app
-
 
 def create_database(app):
     if not path.exists('website/' + DB_NAME):

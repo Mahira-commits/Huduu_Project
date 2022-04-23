@@ -8,8 +8,8 @@ import json
 
 views=Blueprint('views', __name__)
 
-@views.route('/')
-def index():
+@views.route('/initDB')
+def initDB():
     db.drop_all()
     db.create_all()
 
@@ -19,6 +19,7 @@ def index():
     adham = User(username="Adham123", password="Adham123", name="Adham Galal", email="adham@gmail.com", id=77846, phone="0509876543", userType=0)
     lolya = User(username="Lolya123", password="Lolya123", name="Lolya Younes", email="lolya@gmail.com", id=88888, phone="0501122334", userType=0)
     mahira = User(username="Mahira123", password="Mahira123", name="Mahira Pathan", email="mahira@gmail.com", id=85003, phone="0501383252", userType=0)
+    
     #counselors
     yara = User(username="Yara123", password="Yara123", name="Yara Aljabi", email="yara@gmail.com", id=1111, phone="0501234566", userType=1)
     razan = User(username="Rewan123", password="Rewan123", name="Rewan Reda", email="razan@gmail.com", id=2222, phone="0502222222", userType=1)
@@ -37,6 +38,40 @@ def index():
     tip3=StudentTips(studentId=83776, counselorId=2222,message="Do your best to remain a willing, accepting, and teachable person.")
     tip4=StudentTips(studentId=83776, counselorId=3333,message="Remove the word should from your vocabulary as much as possible.")
 
+    #manually adding progress records
+    mood1 = Progress(value="happy", studentID=83776, type="mood")
+    mood2 = Progress(value="neutral", studentID=83776, type="mood")
+    mood3 = Progress(value="sad", studentID=83776, type="mood")
+    mood4 = Progress(value="happy", studentID=83776, type="mood")
+    mood5 = Progress(value="happy", studentID=83776, type="mood")
+    mood6 = Progress(value="sad", studentID=83776, type="mood")
+    mood7 = Progress(value="neutral", studentID=83776, type="mood")
+    mood8 = Progress(value="sad", studentID=83776, type="mood")
+    mood9 = Progress(value="sad", studentID=83776, type="mood")
+    mood10 = Progress(value="happy", studentID=83776, type="mood")
+
+    meal1 = Progress(value="1", studentID=83776, type="meal")
+    meal2 = Progress(value="1", studentID=83776, type="meal")
+    meal3 = Progress(value="3", studentID=83776, type="meal")
+    meal4 = Progress(value="3", studentID=83776, type="meal")
+    meal5 = Progress(value="3", studentID=83776, type="meal")
+    meal6 = Progress(value="2", studentID=83776, type="meal")
+    meal7 = Progress(value="2", studentID=83776, type="meal")
+    meal8 = Progress(value="2", studentID=83776, type="meal")
+    meal9 = Progress(value="2", studentID=83776, type="meal")
+    meal10 = Progress(value="2", studentID=83776, type="meal")
+
+    rest1 = Progress(value="0-3", studentID=83776, type="rest")
+    rest2 = Progress(value="4-6", studentID=83776, type="rest")
+    rest3 = Progress(value="4-6", studentID=83776, type="rest")
+    rest4 = Progress(value="4-6", studentID=83776, type="rest")
+    rest5 = Progress(value="7-9", studentID=83776, type="rest")
+    rest6 = Progress(value="10", studentID=83776, type="rest")
+    rest7 = Progress(value="7-9", studentID=83776, type="rest")
+    rest8 = Progress(value="10", studentID=83776, type="rest")
+    rest9 = Progress(value="7-9", studentID=83776, type="rest")
+    rest10 = Progress(value="0-3", studentID=83776, type="rest")
+
     db.session.add(meriam)
     db.session.add(isra)
     db.session.add(adham)
@@ -54,8 +89,45 @@ def index():
     db.session.add(tip2)
     db.session.add(tip3)
     db.session.add(tip4)
+
+    db.session.add(mood1)
+    db.session.add(mood2)
+    db.session.add(mood3)
+    db.session.add(mood4)
+    db.session.add(mood5)
+    db.session.add(mood6)
+    db.session.add(mood7)
+    db.session.add(mood8)
+    db.session.add(mood9)
+    db.session.add(mood10)
+
+    db.session.add(meal1)
+    db.session.add(meal2)
+    db.session.add(meal3)
+    db.session.add(meal4)
+    db.session.add(meal5)
+    db.session.add(meal6)
+    db.session.add(meal7)
+    db.session.add(meal8)
+    db.session.add(meal9)
+    db.session.add(meal10)
+
+    db.session.add(rest1)
+    db.session.add(rest2)
+    db.session.add(rest3)
+    db.session.add(rest4)
+    db.session.add(rest5)
+    db.session.add(rest6)
+    db.session.add(rest7)
+    db.session.add(rest8)
+    db.session.add(rest9)
+    db.session.add(rest10)
     db.session.commit()
 
+    return redirect(url_for('views.index'))
+
+@views.route('/')
+def index():
     return render_template('index.html')
 
 @views.route('/indexStudent')
@@ -277,7 +349,7 @@ def tempMood():
     lstMeal = ["1", "2", "3"]
     valMeal = [mealOne, mealTwo, mealThree]
 
-    rest03 = Progress.query.filter_by(studentID=current_user.id, value="1-3").count()
+    rest03 = Progress.query.filter_by(studentID=current_user.id, value="0-3").count()
     rest46 = Progress.query.filter_by(studentID=current_user.id, value="4-6").count()
     rest79 = Progress.query.filter_by(studentID=current_user.id, value="7-9").count()
     rest10 = Progress.query.filter_by(studentID=current_user.id, value="10").count()
