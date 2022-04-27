@@ -95,19 +95,19 @@
 	<style> 
 		#leftbox {
 			float:left; 
-			width:15%;
+			width:10%;
 			height:100px;
 			padding-left: 235px;
 		}
 		#middlebox{
 			float:left; 
-			width:15%;
+			;width:10%;
 			height:100px;
 			padding-left: 235px;
 		}
 		#rightbox{
 			float:left;
-			width:15%;
+			width:10%;
 			height:100px;
 			padding-left: 235px;
 		}
@@ -159,20 +159,20 @@
 			</div>
 			<form action="/moodStudent" method=POST>
 			<h2 class="text-primary" style="font-size: 50px; text-align:center; color: #06BBCC">
-			<div id="leftbox" style="padding-left: 250px; width: 10%;" >
+			<div id="leftbox"  >
 				<button value="1" class="py-md-2 px-md-4" style="color: #06BBCC;" name="btn2">1</button>
 			</div>
-			<div id="middlebox" style="padding-left: 250px; width: 10%;">
+			<div id="middlebox" >
 				<button value="2" class="py-md-2 px-md-4" style="color: #06BBCC;" name="btn2">2</button>
 			</div>
-			<div id="rightbox" style="padding-left: 250px; width: 10%;">
+			<div id="rightbox" >
 				<button value="3" class="py-md-2 px-md-4" style="color: #06BBCC;"name="btn2">3+</button>
 			</div>
 				</form>
 			</h2>
 	</div><br>
 	</div>
-	<br><br><br><br><br><br><br>
+	<br><br><br><br><br>
 
 
 	<div class="container wow fadeInUp" data-wow-delay="0.1s">
@@ -185,23 +185,23 @@
 				<h1>How many hours of sleep did you have today? </h1>
 			</div>
 			<form action="/moodStudent" method=POST>
-			<h2 class="text-primary" style="font-size: 50px; text-align:center; color: #06BBCC">
-			<div id="leftbox" style="padding-left: 200px;">
-				<button value="0-3"  style="color: #06BBCC;" name="btn3">0-3</button>
+			<h2 class="text-primary" style="font-size: 50px; text-align:center; width:30; color: #06BBCC">
+			<div id="rightbox" style="padding-left: 130px;">
+				<button value="0-3" class="py-md-2 px-md-4"  style="color: #06BBCC; width: auto;" name="btn3">0~3</button>
 			</div>
-			<div id="leftbox" style="padding-left: 200px;">
-				<button value="4-6"  style="color: #06BBCC;"  name="btn3">4-6</button>
+			<div id="rightbox" >
+				<button value="4-6" class="py-md-2 px-md-4"  style="color: #06BBCC; width: auto;"  name="btn3">4~6</button>
 			</div>
-			<div id="rightbox" style="padding-left: 200px;">
-				<button value="10" style="color: #06BBCC;" name="btn3">10+</button>
+			<div id="rightbox" >
+				<button value="7-9" class="py-md-2 px-md-4" style="color: #06BBCC; width: auto;" name="btn3">7~9</button>
 			</div>
-			<div id="rightbox" style="padding-left: 200px;">
-				<button value="10" style="color: #06BBCC;" name="btn3">10+</button>
+			<div id="rightbox" >
+				<button value="10"class="py-md-2 px-md-4"  style="color: #06BBCC; width: auto;" name="btn3">10+</button>
 			</div>
 				</form>
 			</h2>
 	</div><br>
-	</div><br><br><br><br><br><br><br><br>
+	</div><br><br><br><br>
 
 	<form action="/tempMood" method=POST>
 		<button href="" type = "submit" class="btn btn-primary py-md-3 px-md-5">Check Progress</button>
